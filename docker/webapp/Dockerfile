@@ -2,7 +2,7 @@ FROM python:alpine
 
 WORKDIR /usr/src/
 
-COPY app/ app/
+COPY src/ app/
 
 
 COPY requirements.txt ./

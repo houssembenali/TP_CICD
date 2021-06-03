@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   web-app-api:
+    image: tp-cicd-ib:0.4
     build:
         context: ./webapp
         dockerfile: Dockerfile

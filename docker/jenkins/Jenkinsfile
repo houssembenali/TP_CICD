@@ -1,0 +1,19 @@
+ pipeline {
+      agent any 
+      stages {
+        stage('Clone sources') {
+            steps {
+                git url: 'https://github.com/houssembenali/TP_CICD.git'
+            }
+        }
+        
+       stage('Compile') {
+             sh 'docker build -f docker/webapp/Dockerfile -t name:tag'
+           }
+        stage('testcode') {
+            steps {
+                sh 'python src/main.py'
+            }
+        }
+      }
+ }

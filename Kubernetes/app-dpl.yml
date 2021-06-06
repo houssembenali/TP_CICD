@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-dpl-dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-dev
+  template: # description de(s) pod(s)
+    metadata:
+      name: app-dev-pod
+      labels:
+        app: app-dev # matching pod & deployement
+    spec:
+      containers:
+        - name: app-devkube
+          image: houssembenali/tp-cicd-ib
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-dev-srv
+spec:
+  type: NodePort
+  selector:
+    app: app-dev # lien de service vers deploy
+  ports:
+    - port: 3200 # port du service (presque innutil c'est interne)
+      targetPort: 3000 # port exporter dans le contenaire
+      nodePort: 30010 # port exporter (utiliser par les clients)
+
+# commande build
+# kubectl apply -f app-dpl.yml -n tp-cicd

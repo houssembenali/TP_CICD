@@ -2,10 +2,10 @@ FROM python:alpine
 
 WORKDIR /usr/src/
 
-COPY src/ app/
+COPY docker/webapp/src/* app/
 
 
-COPY requirements.txt .
+COPY docker/webapp/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 

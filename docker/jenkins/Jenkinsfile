@@ -10,10 +10,10 @@ pipeline {
          stage('Initialisation des variables') {
             steps{
                 script{
-                    USER="UTILISATEUR"
-                    PASSWORD="MOT DE PASSE"
-                    TAG="timgnh/tp-cicd-ib"
-                    JENKINS_SERV="http://192.168.1.30:3000"
+                    USER="houssembenali"
+                    PASSWORD="coccinel"
+                    TAG="houssembenali/tp-cicd-ib"
+                    JENKINS_SERV="http://192.168.1.124:3000"
                     SOURCE_GIT="https://github.com/houssembenali/TP_CICD.git"
                 }
             }                
@@ -35,11 +35,16 @@ pipeline {
         }
          stage('Test Container and stop') {
             steps {
-                sh 'sleep 3'
-                sh "curl ${JENKINS_SERV}"
-                sh 'sleep 3'
-                sh 'docker stop tp_cicd_container'
-            }
+				script{
+					sh 'sleep 3'
+					try{ 
+						sh "curl ${JENKINS_SERV}"
+					} finally {
+						sh 'sleep 1'
+						sh 'docker stop tp_cicd_container'
+					}
+				}
+			}
         }
         stage('push') {
             steps {

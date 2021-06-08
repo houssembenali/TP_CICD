@@ -11,7 +11,7 @@ pipeline {
             steps{
                 script{
                     USER="houssembenali"
-                    PASSWORD="coccinel"
+                    PASSWORD="MOT_DE_PASSE"
                     TAG="houssembenali/tp-cicd-ib"
                     JENKINS_SERV="http://192.168.1.124:3000"
                     SOURCE_GIT="https://github.com/houssembenali/TP_CICD.git"

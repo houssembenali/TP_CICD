@@ -2,7 +2,7 @@ FROM python:alpine
 
 WORKDIR /usr/src/
 
-COPY ./src/* app/
+COPY docker/webapp/src/* app/
 
 
 COPY requirements.txt .

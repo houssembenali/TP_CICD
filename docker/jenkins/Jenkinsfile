@@ -1,38 +1,50 @@
+def USER
+def PASSWORD
+def TAG
+def JENKINS_SERV
+def SOURCE_GIT
+
 pipeline {
     agent any
     stages {
-        /* comment */
+         stage('Initialisation des variables') {
+            steps{
+                script{
+                    USER="UTILISATEUR"
+                    PASSWORD="MOT DE PASSE"
+                    TAG="timgnh/tp-cicd-ib"
+                    JENKINS_SERV="http://192.168.1.30:3000"
+                    SOURCE_GIT="https://github.com/houssembenali/TP_CICD.git"
+                }
+            }                
+        }
         stage('git') {
             steps {
-                git branch: 'main', url: 'https://github.com/houssembenali/TP_CICD.git'
+                git branch: 'main', url: "${SOURCE_GIT}"
             }
         }
-        
         stage('Docker Build Image') {
             steps {
-                sh 'docker build -t houssembenali/tp-cicd-ib .'
+                sh "docker build -f ./docker/webapp/Dockerfile -t ${TAG} ."
             }
         }
-        
         stage('Docker run') {
             steps {
-                sh 'docker run -d --name tp_cicd_container -p 3000:3000 --rm houssembenali/tp-cicd-ib'
+                sh "docker run --rm -d --name tp_cicd_container -p 3000:3000 ${TAG} "
             }
         }
-        
-        stage('Test Container and stop') {
+         stage('Test Container and stop') {
             steps {
                 sh 'sleep 3'
-                sh 'curl http://192.168.1.223:3000'
+                sh "curl ${JENKINS_SERV}"
                 sh 'sleep 3'
                 sh 'docker stop tp_cicd_container'
             }
         }
-        
         stage('push') {
             steps {
-                sh 'docker login -u houssembenali -p MOTDEPASSE'
-                sh 'docker push houssembenali/tp-cicd-ib'
+                sh "docker login -u ${USER} -p ${PASSWORD}"
+                sh "docker push ${TAG}"
             }
         }
     }

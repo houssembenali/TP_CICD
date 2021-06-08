@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        
+        /* comment */
         stage('git') {
             steps {
                 git branch: 'main', url: 'https://github.com/houssembenali/TP_CICD.git'

@@ -53,7 +53,7 @@ pipeline {
         }
         stage('push') {
             steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				sh 'echo 652b3538-31e2-4f80-8501-4070727d8b96 | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh "docker push ${TAG}"
             }
         }

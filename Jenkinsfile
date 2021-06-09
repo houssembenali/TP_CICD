@@ -5,12 +5,14 @@ def JENKINS_SERV
 def SOURCE_GIT
 
 
-environment{
-	DOCKERHUB_CREDENTIALS = credentials('houssembenali-dockerhub')
-}
+
 
 pipeline {
     agent any
+	
+	environment{
+	DOCKERHUB_CREDENTIALS = credentials('houssembenali-dockerhub')
+}
     stages {
          stage('Initialisation des variables') {
             steps{

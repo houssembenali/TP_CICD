@@ -33,8 +33,8 @@ pipeline {
         stage('Docker Build Image') {
             steps {
 				sh "curl -X POST https://discordapp.com/api/webhooks/852186286508343296/0sEwrHLSCYIHA4cPpw3dJhf8uHv5tVn9SZsgQJ58HeU0Q2ywZWZPLGdxjMTDzO3WLf-v
-						 -H "Content-Type: application/json" 
-						 -d "{\"content\":\"tst\"}""
+					 -H \"Content-Type: application/json\" 
+					 -d \"{\"content\":\"tst\"}\""
                 sh "docker build -f ./docker/webapp/Dockerfile -t ${TAG} ."
             }
         }

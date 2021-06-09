@@ -4,6 +4,11 @@ def TAG
 def JENKINS_SERV
 def SOURCE_GIT
 
+
+environment{
+	DOCKERHUB_CREDENTIALS = credentials('houssembenali-dockerhub')
+}
+
 pipeline {
     agent any
     stages {
@@ -48,7 +53,7 @@ pipeline {
         }
         stage('push') {
             steps {
-                sh "docker login -u ${USER} -p ${PASSWORD}"
+				sh "docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW"
                 sh "docker push ${TAG}"
             }
         }
